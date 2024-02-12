@@ -1,13 +1,18 @@
-import { useState } from 'react';
 import './App.css';
 import Button from './button';
+import { useCounter } from './useCounter.hook';
 
 function App() {
-  const [counter, setCounter] = useState(0);
+  const { counter, increment, decrement, canAdd, canSubstract } = useCounter();
   return (
     <div>
       <span>{counter}</span> <br />
-      <Button onClick={() => setCounter(counter + 1)} />
+      <Button onClick={increment} variant='success' disabled={!canAdd}>
+        Add
+      </Button>
+      <Button onClick={decrement} disabled={!canSubstract}>
+        Substract
+      </Button>
     </div>
   );
 }

@@ -2,13 +2,20 @@ import React, { FC } from 'react'
 
 type ButtonProps = {
   onClick: () => void;
-  className?: string;
+  variant?: keyof typeof buttonVariants;
+  children: React.ReactNode;
+  disabled?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ onClick, className }) => {
+const buttonVariants = {
+  default: "",
+  success: "success-button",
+} as const;
+
+const Button: FC<ButtonProps> = ({ onClick, variant = "default", children, disabled }) => {
   return (
-    <button onClick={onClick}>
-      CLICK
+    <button className={`button ${buttonVariants[variant]}`} onClick={onClick} disabled={disabled}>
+      {children}
     </button>
   )
 }
