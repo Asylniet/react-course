@@ -1,34 +1,66 @@
-// import { useState } from "react"
+import React from "react"
 
-// type FormState = {
-//   fields: Field[];
-//   hasError: boolean;
-// }
+type FormState = {
+  fields: Field[];
+  hasError: boolean;
+  getValues: () => any;
+}
 
-// type Field = FieldProps & {
-//   value: any,
-//   error? : string,
-//   onChange: (e: InputEvent) => void,
-// }
+type Field = FieldProps & {
+  value: any,
+  error? : string,
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+}
 
-// export type FieldProps = {
-//   name: string,
-//   label: React.ReactNode,
-//   isRequired?: boolean,
-// }
+export type FieldProps = {
+  name: string,
+  label: React.ReactNode,
+  isRequired?: boolean,
+}
 
-// export const useForm = (fields: FieldProps[]) => {
-//   const _fields = fields.map((field) => {
-//     ...field;
-//     value: "";
-//     error: "";
-//     onChange: (e: InputEvent) => value = e.target.value;
-//   } as Field);
+export const useForm = (_fields: FieldProps[]) => {
+  const fields = _fields.map((field) => ({
+    ...field,
+    value: "",
+    error: "",
+  }) as Field);
 
-//   const [formState, setFormState] = useState<FormState>({
-//     fields: _fields,
-//     hasError: false,
-//   });
+  const [formState, setFormState] = React.useState<FormState>({
+    fields,
+    hasError: false,
+    getValues: () => {},
+  });
 
-//   return { formState }
-// }
+  const updatedFields = formState.fields.map((field) => ({
+    ...field,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setFormState((prev) => ({
+        ...prev,
+        fields: prev.fields.map((f) => {
+          if (f.name === field.name) {
+            return {
+              ...f,
+              value,
+            };
+          }
+          return f;
+        }),
+      }));
+    },
+  }));
+
+  return {
+    formState: {
+      ...formState,
+      fields: updatedFields,
+      getValues: () => {
+        const values: any = {};
+        formState.fields.forEach((field) => {
+          values[field.name] = field.value;
+        });
+        return values;
+      }
+    },
+  };
+};

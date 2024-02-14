@@ -1,4 +1,5 @@
 import './App.css';
+import Form from './Form';
 import Button from './button';
 import { useCounter } from './useCounter.hook';
 
@@ -13,6 +14,8 @@ function App() {
       <Button onClick={decrement} disabled={!canSubstract}>
         Substract
       </Button>
+
+      <Form />
     </div>
   );
 }
