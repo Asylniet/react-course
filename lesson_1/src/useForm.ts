@@ -6,17 +6,16 @@ type FormState = {
   getValues: () => any;
 }
 
-type Field = FieldProps & {
+type Field = {
+  name: string,
+  label: React.ReactNode,
+  isRequired?: boolean,
   value: any,
   error? : string,
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-export type FieldProps = {
-  name: string,
-  label: React.ReactNode,
-  isRequired?: boolean,
-}
+export type FieldProps = Pick<Field, "name" | "label" | "isRequired">
 
 export const useForm = (_fields: FieldProps[]) => {
   const fields = _fields.map((field) => ({
@@ -24,6 +23,14 @@ export const useForm = (_fields: FieldProps[]) => {
     value: "",
     error: "",
   }) as Field);
+  
+  // const fields = _fields.map((field) => {
+  //   return {
+  //     ...field,
+  //     value: "",
+  //     error: "",
+  //   } as Field
+  // })
 
   const [formState, setFormState] = React.useState<FormState>({
     fields,
