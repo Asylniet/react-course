@@ -1,3 +1,4 @@
+import React from 'react';
 import { FieldProps, useForm } from './useForm'
 
 const fields: FieldProps[] = [
@@ -15,8 +16,21 @@ const fields: FieldProps[] = [
   },
 ]
 
-export const Form = () => {
+type FormProps = {
+  isFormVisible: boolean;
+}
+
+export const Form: React.FC<FormProps> = ({ isFormVisible }) => {
   const { formState } = useForm(fields);
+  
+  React.useEffect(() => {
+    console.log("Form mounted")
+  }, []);
+  
+  if(!isFormVisible) return null;
+
+  console.log("RENDERED")
+
   return (
     <form onSubmit={(e) => {
       e.preventDefault();

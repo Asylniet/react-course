@@ -1,7 +1,7 @@
-import { useCustomState } from "./useState";
+import React from "react";
 
 export const useCounter = () => {
-  const [counter, setCounter] = useCustomState(0);
+  const [counter, setCounter] = React.useState(0);
 
   const canAdd = counter < 10;
   const canSubstract = counter > 0;
