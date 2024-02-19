@@ -1,10 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import UserList from './components/UserList';
+import { useGetUsers } from './hooks/useGetUsers.hook';
 
 function App() {
-  return <UserList />
+  const users = useGetUsers();
+  return <UserList users={users} />
 }
 
 export default App;
