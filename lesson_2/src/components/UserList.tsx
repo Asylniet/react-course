@@ -1,26 +1,16 @@
 import React from 'react'
 import UserSearch from './UserSearch';
 import { TUser } from '../models/User';
-import { debounce } from '../utils/debounce';
+import { useDebounce } from '../hooks/useDebouce,hook';
 
 type UserListProps = {
   users: TUser[];
 }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
-  const [search, setSearch] = React.useState('');
-  const [debouncedSearch, setDebouncedSearch] = React.useState('');
-
-  const debouncedSetSearch = React.useCallback(
-    debounce((value: string) => {
-      setDebouncedSearch(value);
-    }, 300), 
-  []);
-
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-    debouncedSetSearch(e.target.value);
-  }
+  const { value: search, debouncedValue: debouncedSearch, handleOnChange } = useDebounce({ 
+    initialValue: "BEKA"
+   });
 
   const filteredUsers = users.filter((user) => {
     return user.name.toLowerCase().includes(debouncedSearch.toLowerCase()) || user.email.toLowerCase().includes(debouncedSearch.toLowerCase());
