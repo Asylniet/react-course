@@ -1,29 +1,18 @@
-import React from 'react';
+import React from 'react';  
 import './App.css';
 import { ModalProvider } from './components/modal/modalProvider';
-import { OpenModalButton } from './components/modal/openModalButton';
-import { RegisterModal } from './components/registerModal';
-import Button from './components/button';
+import { ModalTrigger } from './components/modal/modalTrigger';
+
+// 1. Make focus to work
+// 2. On clicking on button Register log out Values of form
+// 3. Maintain good folder structure
 
 function App() {
-  const [counter, setCounter] = React.useState(0);
-  const ref = React.useRef(0);
-  const handleClick = () => {
-    // setCounter(counter + 1);
-    ref.current = ref.current + 1;
-    // console.log(counter);
-    console.log(ref.current);
-  }
   return (
     <>
       <ModalProvider>
-        <Button onClick={handleClick}>
-          {counter}
-        </Button>
-        REF: {ref.current}
         <main>
-          <OpenModalButton />
-          <RegisterModal />
+          <ModalTrigger />
         </main>
       </ModalProvider>
     </>
