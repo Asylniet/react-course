@@ -1,9 +1,11 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 export const RootPage = () => {
+  const queryClient = new QueryClient()
   return (
-    <div>
+    <QueryClientProvider client={queryClient}>
       <header>
         HEADER
       </header>
@@ -13,6 +15,6 @@ export const RootPage = () => {
       <footer>
         FOOTER
       </footer>
-    </div>
+    </QueryClientProvider>
   )
 }
