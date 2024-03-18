@@ -1,17 +1,18 @@
 import React from 'react'
-import { UserList } from '../../components/User/UserList';
 import { Button } from '../../components/ui/button';
-import { useGetUsers } from '../../hooks/useGetUsers';
+import { useGetPosts } from '../../hooks/useGetPosts';
+import { PostList } from '../../components/Post/PostList';
 
 export const HomePage = () => {
   const [isEnabled, setIsEnabled] = React.useState(false);
-  const query = useGetUsers(isEnabled);
+  const query = useGetPosts(isEnabled);
+  // TODO: Add comments fetching to post page. Due: 20.03.2024
   return (
     <div>
       <Button onClick={() => {setIsEnabled(true)}}>
-        Fetch Users
+        Fetch Posts
       </Button>
-      <UserList isEnabled={isEnabled} query={query} />
+      <PostList isEnabled={isEnabled} query={query} />
     </div>
   )
 }

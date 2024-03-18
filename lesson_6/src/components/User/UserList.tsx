@@ -1,4 +1,3 @@
-import { useGetUsers } from '@/hooks/useGetUsers';
 import React from 'react'
 import UserCard from './UserCard';
 import { UseQueryResult } from '@tanstack/react-query';
