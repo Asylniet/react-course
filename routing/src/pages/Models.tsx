@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { modelData } from "../../data/modelData";
+import { modelData } from "../data/modelData";
 
 export const Models = () => {
     const {id} = useParams();
